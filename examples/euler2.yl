@@ -1,0 +1,28 @@
+(define evenp
+  (lambda (n)
+    (eql (mod n 2) 0)))
+
+(define fibonacci-sequence
+  (lambda ()
+    (let ((f1 0)
+	  (f2 1))
+      (lambda ()
+	(let ((tmp f1))
+	  (assign f1 f2)
+	  (assign f2 (+ f2 tmp)))
+	f2))))
+
+(define euler2
+  (lambda ()
+    (let ((fib-seq (fibonacci-sequence)))
+      (letrec ((loop
+		(lambda (acc)
+		  (let ((curr (fib-seq)))
+		    (if (> curr 4000000) acc
+		      (if (evenp curr)
+			  (loop (+ acc curr))
+			(loop acc)))))))
+	(loop 0)))))
+
+(let ((e (euler2)))
+  (println e))

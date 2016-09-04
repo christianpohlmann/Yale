@@ -1,0 +1,81 @@
+(define and
+  (lambda (c1 c2)
+    (if c1 c2 c1)))
+
+(define or
+  (lambda (c1 c2)
+    (if c1 c1 c2)))
+
+(define >=
+  (lambda (x y)
+    (or (> x y) (eql x y))))
+
+(define <=
+  (lambda (x y)
+    (not (> x y))))
+
+(define <
+  (lambda (x y)
+    (not (>= x y))))
+
+(define length
+  (lambda (list)
+    (if (nullp list) 0
+      (+ 1 (length (cdr list))))))
+
+(define append
+  (lambda (list1 list2)
+    (if (nullp list1)
+	list2
+      (cons (car list1) (append (cdr list1) list2)))))
+
+(define reverse
+  (lambda (list)
+    (letrec ((reverse-aux
+	      (lambda (list acc)
+		(if (nullp list) acc
+		  (reverse-aux (cdr list) (cons (car list) acc))))))
+      (reverse-aux list nil))))
+
+(define map
+  (lambda (fun list)
+    (if (nullp list) nil
+      (cons (fun (car list))
+	    (map fun (cdr list))))))
+
+(define reduce
+  (lambda (fun acc list)
+    (if (nullp list) acc
+      (reduce fun
+	      (fun acc (car list))
+	      (cdr list)))))
+
+(define range
+  (lambda (l r)
+    (if (eql l r)
+	(cons r nil)
+      (cons l (range (+ l 1) r)))))
+
+(define tree-equal
+  (lambda (list1 list2)
+    (if (and (atomp list1)
+	     (atomp list2))
+	(eql list1 list2)
+      (if (or (and (atomp list1)
+		   (consp list2))
+	      (and (consp list1)
+		   (atomp list2)))
+	  nil
+	(if (and (nullp list1)
+		 (not (nullp list2)))
+	    nil
+	  (if (and (nullp list1)
+		   (nullp list2))
+	      t
+	    (if (and (not (nullp list1))
+		     (not (nullp list2)))
+		(and (tree-equal (car list1)
+				 (car list2))
+		     (tree-equal (cdr list1)
+				 (cdr list2)))
+	      nil)))))))

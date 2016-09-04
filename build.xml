@@ -1,0 +1,31 @@
+<project name="yale" default="deploy" basedir=".">
+	<target name="init">
+		<property name="sourceDir" value="src" />
+		<property name="resourcesDir" value="resources" />
+		<property name="outputDir" value="classes" />
+	</target>
+	<target name="clean" depends="init">
+		<delete dir="${outputDir}" />
+		<delete>
+			<fileset dir="." includes="yale*jar" />
+		</delete>
+	</target>
+	<target name="prepare" depends="clean">
+		<mkdir dir="${outputDir}" />
+	</target>
+	<target name="build" depends="prepare">
+		<javac srcdir="${sourceDir}" destdir="${outputDir}" />
+		<copy file="${resourcesDir}/stdlib.yl" todir="${outputDir}" />
+	</target>
+	<target name="jar" depends="build">
+		<property name="version.number" value="0.1" />
+		<buildnumber file="build.number" />
+		<jar destfile="yale-${version.number}.${build.number}.jar" basedir="${outputDir}" includes="**/*.*">
+			<manifest>
+				<attribute name="Main-Class" value="yale.main.Yale" />
+				<attribute name="Implementation-Version" value="${version.number}.${build.number}" />
+			</manifest>
+		</jar>
+	</target>
+	<target name="deploy" depends="jar" />
+</project>
