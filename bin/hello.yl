@@ -1,6 +1,0 @@
-(define hello
-  (lambda (n)
-    (if (eql n 0) nil
-      (println n))))
-
-(hello 5)
