@@ -142,7 +142,7 @@ public class Yale {
     }
 
     public static void main(String[] args) throws IOException, ParseError, URISyntaxException {
-        if (args.length != 0 && args.length != 2) {
+        if (args.length != 0 && args.length != 1) {
             printIntro();
             System.out.println("Usage:");
             System.out.println("\t<>: Start interactive REPL");

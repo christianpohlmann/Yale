@@ -3,6 +3,7 @@
 		<property name="sourceDir" value="src" />
 		<property name="resourcesDir" value="resources" />
 		<property name="outputDir" value="classes" />
+		<property name="jarFileName" value="yale.jar" />
 	</target>
 	<target name="clean" depends="init">
 		<delete dir="${outputDir}" />
@@ -17,10 +18,13 @@
 		<javac srcdir="${sourceDir}" destdir="${outputDir}" />
 		<copy file="${resourcesDir}/stdlib.yl" todir="${outputDir}" />
 	</target>
-	<target name="jar" depends="build">
+	<target name="auto-version">
 		<property name="version.number" value="0.1" />
 		<buildnumber file="build.number" />
-		<jar destfile="yale-${version.number}.${build.number}.jar" basedir="${outputDir}" includes="**/*.*">
+		<property name="jarFileName" value="yale-${version.number}.${build.number}.jar" />
+	</target>
+	<target name="jar" depends="build">
+		<jar destfile="${jarFileName}" basedir="${outputDir}" includes="**/*.*">
 			<manifest>
 				<attribute name="Main-Class" value="yale.main.Yale" />
 				<attribute name="Implementation-Version" value="${version.number}.${build.number}" />
