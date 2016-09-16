@@ -1,12 +1,13 @@
 # yale
 ## About
 yale (yet another lisp evaluator) is a simple Lisp interpreter written
-in Java. Its functionality is rather limited:
+in Java. Its functionality includes: 
 * symbols
 * numbers
 * cons pairs
 * first-class functions
 * first-class special forms
+* lexical closures (as a result of having functions and lexical scoping)
 
 `if`, `lambda` and all other special forms are first-class objects and
 can be passed as function parameters. 
