@@ -312,7 +312,7 @@ public class Kernel {
                          * _defEnv_ is the environment where lambda was defined
                          * whereas _env_ is the environment where it is
                          * executed. Therefore, by using _defEnv_, bindings are
-                         * resolved lexicographically whereas by using _env_
+                         * resolved lexically whereas by using _env_
                          * they would be resolved dynamically (cf. lexical vs
                          * dynamic scoping). _env_ is therefore ignored.
                          */
